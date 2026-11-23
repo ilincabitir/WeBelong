@@ -12,10 +12,11 @@
 | Backend | Bare Spring Boot skeleton — one main class, no entities, no endpoints, no security |
 | Frontend | Bare Vite + React + AntD template, `App.tsx` still the Vite demo page |
 | Database | Native PostgreSQL 18 service **already running** on `localhost:5432`, database `webelong` exists, login `postgres/ilinca123` works ✅ |
-| Docker | `friendship-postgres` container is **crash-looping** (restart count 6). Postgres 18 changed its volume layout to `/var/lib/postgresql`, and port 5432 is already taken by the native service. |
-| Git | Backend is **not a git repository** |
+| Docker | **Removed** — container, network and `docker-compose.yml` deleted. An orphan volume `webelong_postgres_data` remains (unused; can be deleted with `docker volume rm webelong_postgres_data`). |
+| Git | Initialized at `Webelong/` root, with root `.gitignore` and one commit of the skeleton |
+| Verified | App starts in ~3 s and connects to PostgreSQL 18.7 at `jdbc:postgresql://localhost:5432/webelong` ✅ |
 
-**Decision: use the native PostgreSQL and drop Docker.** It already matches `application.properties` and already has the `webelong` DB. Run `docker compose down` and remove/ignore `docker-compose.yml` — every minute spent fixing a redundant container is wasted.
+**Decision: native PostgreSQL, no Docker.** It matched `application.properties` and already had the `webelong` DB, so the container was pure overhead. The connection is verified end-to-end; do not reintroduce Docker.
 
 ---
 
@@ -61,9 +62,9 @@ Build in **vertical slices** — every session ends with something clickable in 
 ### Monday — Foundation + auth (3h)
 
 **0:00–0:20 — Environment**
-- [ ] `docker compose down` (kill the crash-looping container); confirm `webelong` DB reachable.
-- [ ] `git init` in `Webelong/`, root `.gitignore` covering `target/`, `node_modules/`, `uploads/`, `.env`.
-- [ ] First commit of the current skeleton.
+- [x] Docker removed; native `webelong` DB reachable and app boots against it.
+- [x] `git init` at `Webelong/` root, root `.gitignore` covering `target/`, `node_modules/`, `uploads/`, `.env`.
+- [x] First commit of the current skeleton (`f60e26d`).
 - [ ] Add deps: `spring-boot-starter-security`, `jjwt-api` / `jjwt-impl` / `jjwt-jackson`, `spring-security-test`.
 
 **0:20–1:50 — Backend auth**
@@ -283,8 +284,8 @@ A missing "additional" feature costs less than a broken required one.
 
 ## 10. Start here, right now (Monday, first 20 minutes)
 
-1. `docker compose down` — stop the crash-looping container.
-2. `git init` + root `.gitignore` + first commit.
+1. ~~Remove Docker / verify DB~~ — done and verified.
+2. ~~`git init` + root `.gitignore` + first commit~~ — done.
 3. Add the security/JWT dependencies to `pom.xml`.
 4. Create the `User` entity + repository.
 5. Create `AuthController` with a hard-coded "hello" endpoint and confirm the app boots against `webelong`.
