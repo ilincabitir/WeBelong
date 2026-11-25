@@ -3,6 +3,7 @@ import { AuthProvider } from './auth/AuthContext';
 import { ProtectedRoute } from './auth/ProtectedRoute';
 import { AppLayout } from './layouts/AppLayout';
 import { LoginPage } from './pages/LoginPage';
+import { ProfilePage } from './pages/ProfilePage';
 import { RegisterPage } from './pages/RegisterPage';
 
 export default function App() {
@@ -15,7 +16,8 @@ export default function App() {
 
           <Route element={<ProtectedRoute />}>
             <Route element={<AppLayout />}>
-              <Route index element={<div>Feed arrives Wednesday</div>} />
+              <Route index element={<div>Feed arrives Thursday</div>} />
+              <Route path="profile/:id" element={<ProfilePage />} />
             </Route>
           </Route>
 

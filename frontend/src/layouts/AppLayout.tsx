@@ -1,8 +1,12 @@
+import type { CSSProperties } from 'react';
 import { Avatar, Button, Layout, Space, Typography } from 'antd';
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
+import './AppLayout.css';
 
 const { Header, Content } = Layout;
+
+type LayoutStyleVars = CSSProperties & { '--accent': string };
 
 export function AppLayout() {
   const { user, logout } = useAuth();
@@ -13,34 +17,34 @@ export function AppLayout() {
     navigate('/login', { replace: true });
   }
 
+  const layoutVars: LayoutStyleVars = {
+    '--accent': user?.themeColor ?? '#1677ff',
+  };
+
   return (
-    <Layout style={{ minHeight: '100vh' }}>
-      <Header
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          background: '#fff',
-          borderBottom: '1px solid #ececec',
-          paddingInline: 24,
-        }}
-      >
-        <Typography.Title level={4} style={{ margin: 0 }}>
-          Webelong
-        </Typography.Title>
+    <Layout className="app-layout" style={layoutVars}>
+      <Header className="app-header">
+        <Link to="/" className="app-brand">
+          <Typography.Title level={4}>Webelong</Typography.Title>
+        </Link>
 
         <Space size="middle">
-          <Avatar style={{ background: user?.themeColor }}>
-            {user?.displayName?.[0]?.toUpperCase()}
-          </Avatar>
-          <Typography.Text strong>{user?.displayName}</Typography.Text>
+          <Link to="/profile/me" className="app-user-link">
+            <Space size="small">
+              <Avatar
+                className="app-avatar"
+                src={user?.avatarUrl ?? undefined}
+              >
+                {user?.displayName?.[0]?.toUpperCase()}
+              </Avatar>
+              <Typography.Text strong>{user?.displayName}</Typography.Text>
+            </Space>
+          </Link>
           <Button onClick={handleLogout}>Log out</Button>
         </Space>
       </Header>
 
-      <Content
-        style={{ width: '100%', maxWidth: 900, margin: '0 auto', padding: 24 }}
-      >
+      <Content className="app-content">
         <Outlet />
       </Content>
     </Layout>

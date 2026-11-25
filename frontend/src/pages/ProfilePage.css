@@ -1,0 +1,126 @@
+/* ---------- Page shell ---------- */
+.profile-page {
+  width: 100%;
+}
+
+.profile-card {
+  overflow: hidden;
+}
+
+.profile-card .ant-card-body {
+  padding: 0;
+}
+
+/* ---------- Cover ---------- */
+.profile-cover {
+  height: 180px;
+  overflow: hidden;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-soft) 100%);
+}
+
+.profile-cover-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---------- Body ---------- */
+.profile-body {
+  padding: 0 24px 24px;
+}
+
+.profile-avatar-row {
+  margin-top: -48px;
+  margin-bottom: 16px;
+}
+
+.profile-avatar.ant-avatar {
+  background: var(--accent);
+  border: 4px solid #fff;
+  font-size: 36px;
+}
+
+.profile-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* Doubled selector so AntD's typography margin does not win */
+.profile-name.ant-typography {
+  margin: 0;
+  font-family: var(--profile-font);
+}
+
+.profile-accent-bar {
+  width: 48px;
+  height: 4px;
+  margin-top: 10px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+.profile-bio.ant-typography {
+  margin-top: 16px;
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+  font-family: var(--profile-font);
+}
+
+/* ---------- Edit drawer ---------- */
+.profile-alert {
+  margin-bottom: 16px;
+}
+
+.profile-upload-block {
+  width: 100%;
+}
+
+.profile-cover-preview {
+  height: 90px;
+  overflow: hidden;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  background: #f0f0f0;
+}
+
+.profile-avatar-placeholder.ant-avatar {
+  background: #d9d9d9;
+}
+
+.profile-color-input {
+  width: 100%;
+  height: 38px;
+  padding: 2px;
+  border: 1px solid #d9d9d9;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.profile-form-actions {
+  margin-top: 8px;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 560px) {
+  .profile-cover {
+    height: 130px;
+  }
+
+  .profile-body {
+    padding: 0 16px 16px;
+  }
+
+  .profile-avatar-row {
+    margin-top: -40px;
+  }
+
+  .profile-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
