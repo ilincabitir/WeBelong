@@ -24,6 +24,8 @@ import { getUser, updateMe, uploadImage } from '../api/users';
 import type { PublicUser } from '../api/users';
 import { useAuth } from '../auth/AuthContext';
 import './ProfilePage.css';
+import { FriendButton } from '../components/FriendButton';
+import { ProfilePosts } from '../components/ProfilePosts';
 
 const FONTS = [
   'system-ui',
@@ -158,7 +160,7 @@ export function ProfilePage() {
   if (loading) {
     return (
       <Card>
-        <Skeleton active avatar paragraph={{ rows: 4 }} />;
+        <Skeleton active avatar paragraph={{ rows: 4 }} />
       </Card>
     );
   }
@@ -214,7 +216,7 @@ export function ProfilePage() {
                   Edit profile
                 </Button>
               ) : (
-                <Button disabled>Add friend</Button>
+                <FriendButton userId={profile.id} />
               )}
             </div>
 
@@ -229,6 +231,7 @@ export function ProfilePage() {
             </Typography.Text>
           </div>
         </Card>
+        <ProfilePosts userId={profile.id} canManage={isMe} />
       </div>
 
       <Drawer

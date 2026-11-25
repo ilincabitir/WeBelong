@@ -1,4 +1,6 @@
 package com.webelong.backend.model;
 
-public class FriendshipStatus {
+public enum FriendshipStatus {
+    PENDING,
+    ACCEPTED
 }

@@ -1,0 +1,84 @@
+.connections-card .ant-card-body {
+  padding: 0;
+}
+
+.connections-tabs .ant-tabs-nav {
+  margin: 0;
+  padding: 0 24px;
+}
+
+.connections-toolbar {
+  padding: 16px 24px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.connections-list .ant-list-item {
+  padding: 16px 24px;
+}
+
+.connections-alert {
+  margin: 16px 24px 0;
+}
+
+.connection-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.connection-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.connection-identity:hover {
+  color: inherit;
+}
+
+.connection-username {
+  display: block;
+  font-size: 12px;
+}
+
+.connection-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.requests-panel {
+  padding: 16px 24px 24px;
+}
+
+.requests-panel .ant-typography {
+  margin-top: 0;
+}
+
+.requests-subtitle {
+  margin-top: 24px !important;
+}
+
+@media (max-width: 560px) {
+  .connections-tabs .ant-tabs-nav {
+    padding: 0 16px;
+  }
+
+  .connections-toolbar {
+    padding: 16px;
+  }
+
+  .connections-list .ant-list-item {
+    padding: 14px 16px;
+  }
+
+  .requests-panel {
+    padding: 16px;
+  }
+}

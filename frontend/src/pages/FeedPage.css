@@ -1,0 +1,27 @@
+.feed-page {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.feed-toolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ececec;
+  border-radius: 12px;
+}
+
+.feed-title.ant-typography {
+  margin: 0;
+}
+
+@media (max-width: 560px) {
+  .feed-toolbar {
+    padding: 16px;
+  }
+}

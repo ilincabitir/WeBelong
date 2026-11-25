@@ -1,4 +1,3 @@
 package com.webelong.backend.dto;
 
-public class FriendStatusResponse {
-}
+public record FriendStatusResponse(String status) {}

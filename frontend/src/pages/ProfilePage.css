@@ -105,6 +105,14 @@
   margin-top: 8px;
 }
 
+.profile-posts {
+  margin-top: 24px;
+}
+
+.profile-posts-title.ant-typography {
+  margin-top: 0;
+}
+
 /* ---------- Small screens ---------- */
 @media (max-width: 560px) {
   .profile-cover {

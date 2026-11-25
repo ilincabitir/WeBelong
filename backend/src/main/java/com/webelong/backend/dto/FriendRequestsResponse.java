@@ -1,4 +1,8 @@
 package com.webelong.backend.dto;
 
-public class FriendRequestsResponse {
-}
+import java.util.List;
+
+public record FriendRequestsResponse(
+        List<FriendshipDto> incoming,
+        List<FriendshipDto> outgoing
+) {}
