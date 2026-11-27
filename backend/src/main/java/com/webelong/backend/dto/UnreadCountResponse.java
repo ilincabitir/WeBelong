@@ -1,4 +1,3 @@
 package com.webelong.backend.dto;
 
-public class UnreadCountResponse {
-}
+public record UnreadCountResponse(long count) {}

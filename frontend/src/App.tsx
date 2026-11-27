@@ -5,6 +5,7 @@ import { AppLayout } from './layouts/AppLayout';
 import { ConnectionsPage } from './pages/ConnectionsPage';
 import { FeedPage } from './pages/FeedPage';
 import { LoginPage } from './pages/LoginPage';
+import { NotificationsPage } from './pages/NotificationsPage';
 import { ProfilePage } from './pages/ProfilePage';
 import { RegisterPage } from './pages/RegisterPage';
 
@@ -20,6 +21,7 @@ export default function App() {
             <Route element={<AppLayout />}>
               <Route index element={<FeedPage />} />
               <Route path="friends" element={<ConnectionsPage />} />
+              <Route path="notifications" element={<NotificationsPage />} />
               <Route path="profile/:id" element={<ProfilePage />} />
             </Route>
           </Route>

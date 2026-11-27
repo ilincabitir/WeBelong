@@ -26,6 +26,7 @@ public class FriendshipService {
 
     private final FriendshipRepository friendships;
     private final UserRepository users;
+    private final NotificationService notifications;
 
     @Transactional
     public FriendshipDto sendRequest(User current, Long targetId) {
@@ -57,6 +58,7 @@ public class FriendshipService {
                 .build();
 
         friendships.save(friendship);
+        notifications.notifyFriendRequest(current, target);
         return toDto(friendship, current.getId());
     }
 
@@ -94,6 +96,8 @@ public class FriendshipService {
 
         friendship.setStatus(FriendshipStatus.ACCEPTED);
         friendship.setRespondedAt(Instant.now());
+        notifications.markFriendRequestRead(
+                current, friendship.getRequester().getId());
         return toDto(friendship, current.getId());
     }
 
@@ -111,6 +115,8 @@ public class FriendshipService {
         }
 
         friendships.delete(friendship);
+        notifications.markFriendRequestRead(
+                current, friendship.getRequester().getId());
     }
 
     @Transactional(readOnly = true)

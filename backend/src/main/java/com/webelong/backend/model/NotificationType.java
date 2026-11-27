@@ -1,4 +1,6 @@
 package com.webelong.backend.model;
 
-public class NotificationType {
+public enum NotificationType {
+    FRIEND_REQUEST,
+    COMMENT
 }

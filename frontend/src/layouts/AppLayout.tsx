@@ -1,10 +1,12 @@
+import { useEffect } from 'react';
 import type { CSSProperties } from 'react';
-import { Avatar, Button, Layout, Typography } from 'antd';
+import { Avatar, Badge, Button, Layout, Typography } from 'antd';
 import {
+  BellOutlined,
   HomeOutlined,
   LogoutOutlined,
   TeamOutlined,
-  UserOutlined,
+
 } from '@ant-design/icons';
 import {
   Link,
@@ -14,6 +16,10 @@ import {
   useNavigate,
 } from 'react-router-dom';
 import { useAuth } from '../auth/AuthContext';
+import {
+  NotificationsProvider,
+  useNotifications,
+} from '../notifications/NotificationsContext';
 import './AppLayout.css';
 
 const { Header, Content } = Layout;
@@ -21,9 +27,23 @@ const { Header, Content } = Layout;
 type LayoutStyleVars = CSSProperties & { '--accent': string };
 
 export function AppLayout() {
+  return (
+    <NotificationsProvider>
+      <AppShell />
+    </NotificationsProvider>
+  );
+}
+
+function AppShell() {
   const { user, logout } = useAuth();
+  const { unreadCount, refreshUnread } = useNotifications();
   const navigate = useNavigate();
   const location = useLocation();
+
+  // Keep the badge honest whenever the user navigates.
+  useEffect(() => {
+    void refreshUnread();
+  }, [location.pathname, refreshUnread]);
 
   function handleLogout() {
     logout();
@@ -34,7 +54,7 @@ export function AppLayout() {
     '--accent': user?.themeColor ?? '#1677ff',
   };
 
-  const onProfile = location.pathname.startsWith('/profile');
+ 
 
   return (
     <Layout className="app-layout" style={layoutVars}>
@@ -61,7 +81,17 @@ export function AppLayout() {
             <span className="app-nav-label">Friends</span>
           </NavLink>
 
-        
+          <NavLink
+            to="/notifications"
+            className={({ isActive }) => (isActive ? 'active' : undefined)}
+          >
+            <Badge count={unreadCount} size="small" offset={[2, -2]}>
+              <BellOutlined />
+            </Badge>
+            <span className="app-nav-label">Notifications</span>
+          </NavLink>
+
+          
         </nav>
 
         <div className="app-user-area">

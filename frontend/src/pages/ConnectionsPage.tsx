@@ -14,7 +14,6 @@ import {
   Tabs,
   Typography,
 } from 'antd';
-import { Link } from 'react-router-dom';
 import { getErrorMessage } from '../api/client';
 import {
   acceptFriendRequest,
@@ -28,6 +27,8 @@ import type { FriendRequests, FriendStatus } from '../api/friends';
 import { searchUsers } from '../api/users';
 import type { PublicUser } from '../api/users';
 import './ConnectionsPage.css';
+import { Link, useSearchParams } from 'react-router-dom';
+import { useNotifications } from '../notifications/NotificationsContext';
 
 function PersonIdentity({ user }: { user: PublicUser }) {
   return (
@@ -50,6 +51,12 @@ function PersonIdentity({ user }: { user: PublicUser }) {
 
 export function ConnectionsPage() {
   const { message } = AntApp.useApp();
+  const { refreshUnread } = useNotifications();
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const tabParam = searchParams.get('tab');
+  const activeTab =
+    tabParam === 'friends' || tabParam === 'requests' ? tabParam : 'search';
 
   const [query, setQuery] = useState('');
   const [results, setResults] = useState<PublicUser[]>([]);
@@ -151,6 +158,7 @@ export function ConnectionsPage() {
         incoming: prev.incoming.filter((item) => item.id !== requestId),
       }));
       setFriends((prev) => [...prev.filter((f) => f.id !== user.id), accepted.user]);
+      await refreshUnread();
       message.success(`You and ${user.displayName} are now friends`);
     } catch (e) {
       message.error(getErrorMessage(e));
@@ -167,6 +175,7 @@ export function ConnectionsPage() {
         ...prev,
         incoming: prev.incoming.filter((item) => item.id !== requestId),
       }));
+      await refreshUnread();
       message.success('Request declined');
     } catch (e) {
       message.error(getErrorMessage(e));
@@ -365,6 +374,8 @@ export function ConnectionsPage() {
 
       <Tabs
         className="connections-tabs"
+        activeKey={activeTab}
+        onChange={(key) => setSearchParams({ tab: key })}
         items={[
           { key: 'search', label: 'Find people', children: searchPanel },
           {

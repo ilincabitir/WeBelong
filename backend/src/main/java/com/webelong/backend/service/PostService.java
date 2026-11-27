@@ -29,6 +29,8 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class PostService {
 
+    private final NotificationService notifications;
+
     // Must match UserService's allow-list and the frontend Select options.
     private static final Set<String> ALLOWED_FONTS = Set.of(
             "system-ui",
@@ -101,6 +103,7 @@ public class PostService {
         requireAuthor(post, current);
 
         comments.deleteByPostId(postId);
+        notifications.deleteForPost(postId);
         posts.delete(post);
     }
 
@@ -184,6 +187,7 @@ public class PostService {
                 .build();
 
         comments.save(comment);
+        notifications.notifyComment(current, post);
         return CommentResponse.from(comment);
     }
 
@@ -251,4 +255,5 @@ public class PostService {
         String trimmed = value.trim();
         return trimmed.isEmpty() ? null : trimmed;
     }
+
 }
